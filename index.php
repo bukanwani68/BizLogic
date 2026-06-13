@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizLogic.co.id - Teman Belajar Pintar</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Plus Jakarta Sans Font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+        .gradient-blue { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- NAVIGATION BAR -->
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center gap-2 cursor-pointer" onclick="switchPage('home')">
+                <div class="w-9 h-9 gradient-blue rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md shadow-blue-500/20">B</div>
+                <span class="text-xl font-bold tracking-tight text-blue-900">Biz<span class="text-blue-500">Logic</span><span class="text-xs font-semibold text-slate-400 ml-1">.co.id</span></span>
+            </div>
+            
+            <!-- Menu Navigation -->
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+                <a href="#" onclick="switchPage('home')" class="hover:text-blue-600 transition">Beranda</a>
+                <a href="#" onclick="mockSearch()" class="hover:text-blue-600 transition">Cari Solusi</a>
+                <a href="#" onclick="switchPage('profile')" class="hover:text-blue-600 transition">Riwayat Kursus</a>
+                <span class="text-slate-200">|</span>
+                <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">Kelas 4F - Bisnis Digital</span>
+            </div>
+
+            <!-- Profile Badge -->
+            <div class="flex items-center gap-3 cursor-pointer group" onclick="switchPage('profile')">
+                <div class="text-right hidden sm:block">
+                    <p class="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition">Arwani Sri Wahyuni</p>
+                    <p class="text-[10px] text-slate-400">Universitas Pakuan</p>
+                </div>
+                <div class="w-10 h-10 rounded-full border-2 border-blue-500/20 group-hover:border-blue-500 transition overflow-hidden bg-slate-200 flex items-center justify-center text-blue-900 font-bold">
+                    A
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= PAGE 1: HOME ================= -->
+    <div id="page-home" class="page-content block">
+        <!-- HERO SECTION -->
+        <header class="gradient-blue text-white px-6 pt-16 pb-24 relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div class="max-w-5xl mx-auto text-center relative z-10 space-y-6">
+                <div class="inline-flex items-center gap-2 bg-blue-500/30 border border-blue-400/20 px-3 py-1.5 rounded-full text-xs font-medium tracking-wide text-blue-100">
+                    ✨ #DariMahasiswaUntukMahasiswa • Peer-to-Peer Learning
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-bold tracking-tight leading-tight max-w-3xl mx-auto">
+                    Teman Belajar Pintar, Bukan <br class="hidden sm:inline"><span class="text-blue-200">Guru yang Menggurui</span>
+                </h1>
+                <p class="text-sm sm:text-base text-blue-100 max-w-2xl mx-auto font-light">
+                    Ujian udah mepet tapi materi masih segunung? Jangan panik sendirian! Cari bimbingan adaptif yang 100% klop dengan silabus dosen kampusmu.
+                </p>
+            </div>
+        </header>
+
+        <!-- HORIZONTAL SEARCH FILTER BAR (IMPROVED COMPONENT) -->
+        <section class="max-w-5xl mx-auto -mt-12 px-6 relative z-20">
+            <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-xl shadow-slate-200/80 border border-slate-100/80">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                    <!-- Universitas Input -->
+                    <div class="space-y-1.5">
+                        <label class="text-[11px] font-bold tracking-wider text-slate-400 uppercase block">1. Universitas</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-3 flex items-center text-slate-400 text-sm">🏢</span>
+                            <select id="input-univ" onchange="handleUnivChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-3 text-xs sm:text-sm font-semibold text-slate-700 focus:outline-none focus:border-blue-500 focus:bg-white transition cursor-pointer">
+                                <option value="" disabled selected>Pilih Kampus Asal...</option>
+                                <option value="Universitas Pakuan">Universitas Pakuan (UNPAK)</option>
+                                <option value="Universitas Indonesia">Universitas Indonesia (UI)</option>
+                                <option value="Universitas Padjadjaran">Universitas Padjadjaran (UNPAD)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Program Studi Input -->
+                    <div class="space-y-1.5">
+                        <label class="text-[11px] font-bold tracking-wider text-slate-400 uppercase block">2. Program Studi</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-3 flex items-center text-slate-400 text-sm">🎓</span>
+                            <select id="input-prodi" disabled class="w-full bg-slate-100 border border-slate-200 rounded-xl pl-9 pr-3 py-3 text-xs sm:text-sm font-semibold text-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white transition cursor-not-allowed">
+                                <option value="" selected>Pilih Jurusan...</option>
+                                <option value="Bisnis Digital">Bisnis Digital</option>
+                                <option value="Manajemen">Manajemen</option>
+                                <option value="Akuntansi">Akuntansi</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Mode Belajar Input -->
+                    <div class="space-y-1.5">
+                        <label class="text-[11px] font-bold tracking-wider text-slate-400 uppercase block">3. Metode Belajar</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-3 flex items-center text-slate-400 text-sm">⚡</span>
+                            <select id="input-mode" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-3 text-xs sm:text-sm font-semibold text-slate-700 focus:outline-none focus:border-blue-500 focus:bg-white transition cursor-pointer">
+                                <option value="all">Semua Tipe Metode</option>
+                                <option value="online">💻 Online Group Session</option>
+                                <option value="offline">🤝 Offline Group Session</option>
+                                <option value="pdf">📄 Exclusive Summary (.PDF)</option>
+                                <option value="video">📺 Video Belajar Interaktif</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Search Button -->
+                    <div>
+                        <button onclick="mockSearch()" class="w-full gradient-blue hover:bg-blue-700 text-white font-bold text-sm py-3.5 px-4 rounded-xl shadow-md shadow-blue-600/10 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                            <span>🔍</span> Cari Solusi Belajar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FIKTIF REKOMENDASI TERPOPULER SECTION (ADDED AS REQUESTED) -->
+        <section class="max-w-6xl mx-auto px-6 pt-16 space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2">
+                <div>
+                    <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">🔥 REKOMENDASI TERPOPULER</span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-0.5">Solusi Terlaris Minggu Ini di Kampusmu</h2>
+                </div>
+                <p class="text-xs text-slate-400 font-medium">Berdasarkan silabus ter-update Universitas Pakuan</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Rekomendasi 1 (Video Belajar - New Method) -->
+                <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col">
+                    <div class="p-5 flex-1 space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-red-50 text-red-600 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded border border-red-100 flex items-center gap-1">📺 Video Belajar</span>
+                            <div class="flex items-center gap-0.5 text-xs text-amber-500 font-semibold">⭐ 4.9 <span class="text-slate-300 font-normal text-[10px] ml-0.5">(82)</span></div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <p class="text-[11px] font-medium text-slate-400">Operations Research • Week 9</p>
+                            <h3 class="font-bold text-base text-slate-900 leading-snug hover:text-blue-600 cursor-pointer">Kupas Tuntas Metode Transportasi (VAM & MODI)</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed font-light line-clamp-3">
+                            Video rekaman bedah studi kasus berdurasi 45 menit. Dilengkapi coretan trik pengerjaan tabel matriks yang cepat dan anti-gagal untuk UTS.
+                        </p>
+                        <div class="pt-2 border-t border-slate-100 flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-xs">NN</div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-800">Nadiah Nurjanah</p>
+                                <p class="text-[10px] text-slate-400">Asisten Dosen • IPK 3.95</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-5 py-4 bg-slate-50 border-t border-slate-100 flex justify-between items-center">
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-medium">Sekali Akses Selamanya</p>
+                            <p class="text-sm font-bold text-blue-900">Rp 12.000</p>
+                        </div>
+                        <button onclick="openBookingSuccess('Video Belajar - Operations Research')" class="bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-sm transition">Tonton Demo</button>
+                    </div>
+                </div>
+
+                <!-- Rekomendasi 2 (Online Meeting) -->
+                <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col">
+                    <div class="p-5 flex-1 space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-blue-50 text-blue-600 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded border border-blue-100">💻 Online Meeting</span>
+                            <div class="flex items-center gap-0.5 text-xs text-amber-500 font-semibold">⭐ 5.0 <span class="text-slate-300 font-normal text-[10px] ml-0.5">(24)</span></div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <p class="text-[11px] font-medium text-slate-400">Manajemen Kuantitatif • Week 10</p>
+                            <h3 class="font-bold text-base text-slate-900 leading-snug hover:text-blue-600 cursor-pointer">Optimasi Linear Programming & Metode Simpleks Kepepet</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed font-light line-clamp-3">
+                            Bahas tuntas kisi-kisi tugas besar dan persiapan UTS ter-update. Penjelasan kasual pakai analogi nongkrong biar gampang masuk otak!
+                        </p>
+                        <div class="pt-2 border-t border-slate-100 flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full gradient-blue text-white flex items-center justify-center font-bold text-xs">BJ</div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-800">Buqarri Jon</p>
+                                <p class="text-[10px] text-slate-400">Angkatan 6A • IPK 3.92</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-5 py-4 bg-slate-50 border-t border-slate-100 flex justify-between items-center">
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-medium">Biaya Sesi Kelompok</p>
+                            <p class="text-sm font-bold text-blue-900">Rp 15.000 <span class="text-[10px] font-normal text-slate-400">/mhs</span></p>
+                        </div>
+                        <button onclick="openBookingSuccess('Online Group Session - Linear Programming')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-sm transition">Join Zoom</button>
+                    </div>
+                </div>
+
+                <!-- Rekomendasi 3 (PDF Summary) -->
+                <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col">
+                    <div class="p-5 flex-1 space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-purple-50 text-purple-600 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded border border-purple-100">📄 PDF Summary</span>
+                            <div class="flex items-center gap-0.5 text-xs text-amber-500 font-semibold">⭐ 4.9 <span class="text-slate-300 font-normal text-[10px] ml-0.5">(53)</span></div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <p class="text-[11px] font-medium text-slate-400">Business Valuation • Week 13</p>
+                            <h3 class="font-bold text-base text-slate-900 leading-snug hover:text-blue-600 cursor-pointer">Bongkar Rumus Free Cash Flow & Kelayakan Investasi</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed font-light line-clamp-3">
+                            Rangkuman saktii berformat PDF, langsung *to-the-point* contoh studi kasus ujian tahun-tahun lalu dari dosen Dr. Vegapunk.
+                        </p>
+                        <div class="pt-2 border-t border-slate-100 flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-xs">IR</div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-800">Ichwanif Rasyidin</p>
+                                <p class="text-[10px] text-slate-400">Angkatan 6E • IPK 4.00</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-5 py-4 bg-slate-50 border-t border-slate-100 flex justify-between items-center">
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-medium">Harga Berkas Aman</p>
+                            <p class="text-sm font-bold text-blue-900">Rp 5.000</p>
+                        </div>
+                        <button onclick="openBookingSuccess('Exclusive PDF Summary - Business Valuation')" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-sm transition">Unduh PDF</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VALUE PROPOSITION / FEATURES SECTIONS -->
+        <main class="max-w-6xl mx-auto px-6 py-16 space-y-20">
+            <!-- Feature Options Showcase -->
+            <div class="space-y-6">
+                <div class="text-center max-w-xl mx-auto space-y-2">
+                    <h2 class="text-xl sm:text-2xl font-bold text-blue-950">Fleksibilitas Tanpa Batas</h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Pilih metode yang paling klop dengan gaya belajar dan dompet mahasiswa.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <!-- Feature 1 -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-lg">🤝</div>
+                        <h3 class="font-bold text-sm text-slate-900">Offline Session</h3>
+                        <p class="text-[11px] text-slate-500 leading-relaxed">Kolaborasi seru tatap muka langsung bareng kakak tingkat berprestasi di sekitar kampus.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-lg">💻</div>
+                        <h3 class="font-bold text-sm text-slate-900">Online Session</h3>
+                        <p class="text-[11px] text-slate-500 leading-relaxed">Pusing matkul hitungan? Ajak geng belajarmu booking live daring via Zoom dengan fitur patungan.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+                        <div class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center text-lg">📄</div>
+                        <h3 class="font-bold text-sm text-slate-900">PDF Summary</h3>
+                        <p class="text-[11px] text-slate-500 leading-relaxed">Rangkuman rumus cepat & prediksi soal ujian super mikro yang 100% pas sama silabus kampormu.</p>
+                    </div>
+                    <!-- Feature 4 (New Method Added) -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+                        <div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center text-lg">📺</div>
+                        <h3 class="font-bold text-sm text-slate-900">Video Belajar</h3>
+                        <p class="text-[11px] text-slate-500 leading-relaxed">Penjelasan visual asinkronus yang bisa diulang kapan saja, cocok buat belajar tengah malam.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REGISTRATION ADVERTISEMENT BANNER -->
+            <div class="bg-slate-900 text-white rounded-3xl p-8 sm:p-12 relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-8 shadow-xl">
+                <div class="absolute right-0 bottom-0 top-0 w-1/3 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:20px_20px] hidden md:block"></div>
+                <div class="space-y-4 text-center md:text-left relative z-10 max-w-2xl">
+                    <span class="bg-blue-500/20 border border-blue-500/30 text-blue-400 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md">💰 Dompet Aman & Makin Produktif</span>
+                    <h3 class="text-2xl sm:text-3xl font-bold tracking-tight">IPK Terakhirmu >= 3.80?</h3>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Yuk bagikan catatan kuliahmu atau buka kelas mentoring daring. Jadilah bagian dari Mahasiswa Berprestasi di BizLogic, dapatkan passive income melimpah, dan bantu rekan sebayamu lulus bareng!
+                    </p>
+                </div>
+                <button class="bg-white hover:bg-slate-50 text-slate-900 font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition shadow-md whitespace-nowrap">
+                    Daftar Jadi Tutor Sekarang →
+                </button>
+            </div>
+        </main>
+    </div>
+
+
+    <!-- ================= PAGE 2: SEARCH RESULTS ================= -->
+    <div id="page-search" class="page-content hidden">
+        <div class="bg-slate-50 border-b border-slate-200/60 px-6 py-6">
+            <div class="max-w-6xl mx-auto space-y-4">
+                <!-- HEADER RESULT MODERNISED (image_ed1bdd.png) -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 text-[10px] font-bold text-blue-650 uppercase tracking-wider">
+                            <span>🔍</span> Hasil Pencarian Solusi
+                        </div>
+                        
+                        <!-- Judul Utama yang di-highlight -->
+                        <h3 id="search-title-summary" class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
+                            Menampilkan Kelas Bimbingan Sebaya
+                        </h3>
+                        
+                        <!-- Piringan Filter Aktif Berbentuk Badge Kontras -->
+                        <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                            <span class="text-[11px] font-semibold text-slate-400 mr-1">Filter aktif:</span>
+                            
+                            <div id="pill-univ" class="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 font-bold px-3 py-1.5 rounded-xl border border-blue-150">
+                                📍 Universitas Pakuan
+                            </div>
+                            
+                            <div id="pill-prodi" class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 font-bold px-3 py-1.5 rounded-xl border border-emerald-150">
+                                📚 Bisnis Digital
+                            </div>
+                            
+                            <!-- Dropdown Filter Mode yang Menyatu Rapih -->
+                            <div class="inline-flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1 text-slate-600 font-medium">
+                                ⚡ <select id="search-filter-mode" onchange="filterResultsByMode(this.value)" class="bg-transparent text-[11px] font-bold focus:outline-none cursor-pointer py-0.5">
+                                    <option value="all">Semua Tipe</option>
+                                    <option value="offline">Khusus Offline</option>
+                                    <option value="online">Khusus Online</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Aksi Samping (Ubah Kampus) -->
+                    <button onclick="switchPage('home')" class="inline-flex items-center justify-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 font-bold text-xs px-4 py-3 rounded-xl transition shrink-0 shadow-sm">
+                        🔄 Ubah Kampus/Prodi
+                    </button>
+                </div>
+    
+            </div>
+        </div>
+
+        <!-- MAIN MOCK CARDS SECTION -->
+        <main class="max-w-6xl mx-auto px-6 py-10 space-y-12">
+            <!-- Grid Wrapper -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="results-grid">
+                
+                <!-- CARD 1 (VIDEO BELAJAR) -->
+                <div class="bg-white rounded-2xl border border-slate-200/70 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col result-card" data-mode="video">
+                    <div class="p-5 flex-1 space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-red-50 text-red-600 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded border border-red-100">📺 Video Belajar</span>
+                            <div class="flex items-center gap-0.5 text-xs text-amber-500 font-semibold">⭐ 4.9 <span class="text-slate-300 font-normal text-[10px] ml-0.5">(82)</span></div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <p class="text-[11px] font-medium text-slate-400">Operations Research • Week 9</p>
+                            <h3 class="font-bold text-base text-slate-900 leading-snug hover:text-blue-600 cursor-pointer">Kupas Tuntas Metode Transportasi (VAM & MODI)</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed font-light line-clamp-3">
+                            Video rekaman bedah studi kasus berdurasi 45 menit. Dilengkapi coretan trik pengerjaan tabel matriks yang cepat dan anti-gagal untuk UTS.
+                        </p>
+                        <div class="pt-2 border-t border-slate-100 flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-xs">NN</div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-800">Nadiah Nurjanah</p>
+                                <p class="text-[10px] text-slate-400">Angkatan 4F • IPK 3.95</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-5 py-4 bg-slate-50 border-t border-slate-100 flex justify-between items-center">
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-medium">Sekali Akses Selamanya</p>
+                            <p class="text-sm font-bold text-blue-900">Rp 12.000</p>
+                        </div>
+                        <button onclick="openBookingSuccess('Video Belajar - Operations Research')" class="bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-sm transition">Tonton Demo</button>
+                    </div>
+                </div>
+
+                <!-- CARD 2 (ONLINE MEETING) -->
+                <div class="bg-white rounded-2xl border border-slate-200/70 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col result-card" data-mode="online">
+                    <div class="p-5 flex-1 space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-blue-50 text-blue-600 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded border border-blue-100">💻 Online Meeting</span>
+                            <div class="flex items-center gap-0.5 text-xs text-amber-500 font-semibold">⭐ 5.0 <span class="text-slate-300 font-normal text-[10px] ml-0.5">(24)</span></div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <p class="text-[11px] font-medium text-slate-400">Manajemen Kuantitatif • Week 10</p>
+                            <h3 class="font-bold text-base text-slate-900 leading-snug hover:text-blue-600 cursor-pointer">Optimasi Linear Programming & Metode Simpleks Kepepet</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed font-light line-clamp-3">
+                            Bahas tuntas kisi-kisi tugas besar dan persiapan UTS ter-update. Penjelasan kasual pakai analogi nongkrong biar gampang masuk otak!
+                        </p>
+                        <div class="pt-2 border-t border-slate-100 flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full gradient-blue text-white flex items-center justify-center font-bold text-xs">BJ</div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-800">Buqarri Jon</p>
+                                <p class="text-[10px] text-slate-400">Angkatan 6A • IPK 3.92</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-5 py-4 bg-slate-50 border-t border-slate-100 flex justify-between items-center">
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-medium">Biaya Sesi Kelompok</p>
+                            <p class="text-sm font-bold text-blue-900">Rp 15.000 <span class="text-[10px] font-normal text-slate-400">/mhs</span></p>
+                        </div>
+                        <button onclick="openBookingSuccess('Online Group Session - Manajemen Kuantitatif')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-sm transition">Join Zoom</button>
+                    </div>
+                </div>
+
+                <!-- CARD 3 (PDF EXCLUSIVE SUMMARY) -->
+                <div class="bg-white rounded-2xl border border-slate-200/70 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col result-card" data-mode="pdf">
+                    <div class="p-5 flex-1 space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-purple-50 text-purple-600 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded border border-purple-100">📄 PDF Summary</span>
+                            <div class="flex items-center gap-0.5 text-xs text-amber-500 font-semibold">⭐ 4.9 <span class="text-slate-300 font-normal text-[10px] ml-0.5">(53)</span></div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <p class="text-[11px] font-medium text-slate-400">Business Valuation • Week 13</p>
+                            <h3 class="font-bold text-base text-slate-900 leading-snug hover:text-blue-600 cursor-pointer">Bongkar Rumus Free Cash Flow & Kelayakan Investasi</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed font-light line-clamp-3">
+                            Rangkuman saktii berformat PDF, langsung *to-the-point* contoh studi kasus ujian tahun-tahun lalu dari dosen Dr. Vegapunk.
+                        </p>
+                        <div class="pt-2 border-t border-slate-100 flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-xs">IR</div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-800">Ichwanif Rasyidin</p>
+                                <p class="text-[10px] text-slate-400">Angkatan 6E • IPK 4.00</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-5 py-4 bg-slate-50 border-t border-slate-100 flex justify-between items-center">
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-medium">Harga Berkas Aman</p>
+                            <p class="text-sm font-bold text-blue-900">Rp 5.000</p>
+                        </div>
+                        <button onclick="openBookingSuccess('Exclusive PDF Summary - Business Valuation')" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-sm transition">Unduh PDF</button>
+                    </div>
+                </div>
+
+                <!-- CARD 4 (OFFLINE MEETING) -->
+                <div class="bg-white rounded-2xl border border-slate-200/70 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col result-card" data-mode="offline">
+                    <div class="p-5 flex-1 space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-amber-50 text-amber-700 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded border border-amber-100">🤝 Offline Meeting</span>
+                            <div class="flex items-center gap-0.5 text-xs text-amber-500 font-semibold">⭐ 5.0 <span class="text-slate-300 font-normal text-[10px] ml-0.5">(12)</span></div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <p class="text-[11px] font-medium text-slate-400">UI/UX Design • Week 11</p>
+                            <h3 class="font-bold text-base text-slate-900 leading-snug hover:text-blue-600 cursor-pointer">Bimbingan Portofolio & Bedah Heuristic Evaluation</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed font-light line-clamp-3">
+                            Ketemuan seru di Perpustakaan Pusat / Gazebo Utama UNPAK. Langsung diajarin cara bikin kuesioner & mockup berkonversi tinggi.
+                        </p>
+                        <div class="pt-2 border-t border-slate-100 flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-xs">SS</div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-800">Siti Salwa</p>
+                                <p class="text-[10px] text-slate-400">Angkatan 8F • IPK 3.89</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-5 py-4 bg-slate-50 border-t border-slate-100 flex justify-between items-center">
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-medium">Biaya Grup Pas</p>
+                            <p class="text-sm font-bold text-blue-900">Rp 20.000 <span class="text-[10px] font-normal text-slate-400">/mhs</span></p>
+                        </div>
+                        <button onclick="openBookingSuccess('Offline Group Session - UI/UX Design')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-sm transition">Pesan Kelas</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CRISIS MANAGEMENT HIGHLIGHT PROMO -->
+            <div class="bg-gradient-to-r from-blue-950 to-blue-800 rounded-2xl p-6 sm:p-8 text-white flex flex-col md:flex-row justify-between items-center gap-6 shadow-md border border-blue-900/30">
+                <div class="space-y-1.5 text-center md:text-left">
+                    <span class="bg-blue-500/40 border border-blue-400/30 text-blue-100 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded">🔥 PROMO BUNDLING SKS KEPEPET</span>
+                    <h4 class="text-base sm:text-lg font-bold">Beli Sesi Pertemuan + Dapat Berkas Rangkuman Cuma Tambah Rp5.000!</h4>
+                    <p class="text-xs text-blue-200/90 font-light">Jangan biarkan persiapan ujianmu setengah-setengah. Ambil paket komplit belajar paham maju.</p>
+                </div>
+                <button onclick="alert('Demo Fitur Bundling Terpilih!')" class="bg-white hover:bg-slate-50 text-blue-950 font-bold text-xs sm:text-sm px-5 py-3 rounded-xl transition shadow-md whitespace-nowrap">
+                    Ambil Paket Bundling
+                </button>
+            </div>
+        </main>
+    </div>
+
+
+    <!-- ================= PAGE 3: DASHBOARD / PROFILE ================= -->
+    <div id="page-profile" class="page-content hidden">
+        <main class="max-w-5xl mx-auto px-6 py-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                
+                <!-- Left Sidebar Info Profile -->
+                <div class="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm space-y-6">
+                    <div class="text-center space-y-3">
+                        <div class="w-20 h-20 rounded-full bg-blue-100 border-4 border-blue-50 text-blue-900 text-3xl font-bold mx-auto flex items-center justify-center shadow-inner">A</div>
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-900">Arwani Sri Wahyuni</h3>
+                            <p class="text-xs text-slate-400">arwanisriw@gmail.com</p>
+                        </div>
+                        <span class="inline-block bg-blue-50 text-blue-700 text-[10px] font-bold px-3 py-1 rounded-full border border-blue-100">Mahasiswi Aktif</span>
+                    </div>
+
+                    <div class="border-t border-slate-100 pt-4 space-y-3 text-xs">
+                        <div class="flex justify-between"><span class="text-slate-400">Asal Kampus</span><strong class="text-slate-700">Universitas Pakuan</strong></div>
+                        <div class="flex justify-between"><span class="text-slate-400">Program Studi</span><strong class="text-slate-700">Bisnis Digital</strong></div>
+                        <div class="flex justify-between"><span class="text-slate-400">Kelas Aktif</span><strong class="text-slate-700">Kelas 4F</strong></div>
+                    </div>
+                    
+                    <div class="bg-blue-50/50 rounded-xl p-4 border border-blue-100 text-[11px] text-slate-500 leading-relaxed font-light">
+                        <strong>Bio Singkat:</strong> Fokus kuliah, anti-organisasi, tapi paling ambis kalau udah urusan tugas kelompok maupun mandiri. Academic-oriented only!
+                    </div>
+                </div>
+
+                <!-- Right Side Course History Layout -->
+                <div class="md:col-span-2 space-y-6">
+                    <div class="flex justify-between items-center border-b border-slate-200 pb-3">
+                        <h2 class="text-lg font-bold text-slate-900">Riwayat & Kursus Berlangsung</h2>
+                        <span class="text-xs font-semibold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">3 Kursus Aktif</span>
+                    </div>
+
+                    <!-- Course Row Item 0 (Video Belajar) -->
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <span class="bg-red-50 text-red-600 text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-red-100">📺 Video Belajar</span>
+                                <span class="text-[10px] text-slate-400">Status: Akses Aktif Selamanya</span>
+                            </div>
+                            <h4 class="text-sm sm:text-base font-bold text-slate-900">Operations Research - Metode Transportasi VAM (Week 9)</h4>
+                            <p class="text-xs text-slate-500">Tutor Pembimbing: Nadiah Nurjannah</p>
+                        </div>
+                        <button onclick="alert('Memutar Video Belajar Interaktif... (Fungsi Demo)')" class="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-sm transition whitespace-nowrap">Lihat Video</button>
+                    </div>
+
+                    <!-- Course Row Item 1 -->
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <span class="bg-blue-50 text-blue-600 text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-blue-100">💻 Online Meeting</span>
+                                <span class="text-[10px] text-slate-400">Jadwal: Malam Ini, 19:30 WIB</span>
+                            </div>
+                            <h4 class="text-sm sm:text-base font-bold text-slate-900">Manajemen Kuantitatif (Week 10)</h4>
+                            <p class="text-xs text-slate-500">Tutor Pembimbing: Ichwanif Rasyidin — Kelas 6A</p>
+                        </div>
+                        <button onclick="alert('Membuka tautan virtual Zoom Room... (Fungsi Demo)')" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-sm transition whitespace-nowrap">Masuk Live Zoom</button>
+                    </div>
+
+                    <!-- Course Row Item 2 -->
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <span class="bg-amber-50 text-amber-700 text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-amber-100">🤝 Offline Meeting</span>
+                                <span class="text-[10px] text-slate-400">Rekomendasi Area: Perpustakaan Pusat / Gazebo Utama</span>
+                            </div>
+                            <h4 class="text-sm sm:text-base font-bold text-slate-900">UI/UX Design Fundamentals (Week 11)</h4>
+                            <p class="text-xs text-slate-500">Tutor Pembimbing: Siti Salwa — Kelas 8F</p>
+                        </div>
+                        <span class="w-full sm:w-auto block text-center bg-emerald-50 border border-emerald-100 text-emerald-700 font-bold text-xs px-4 py-2.5 rounded-xl">Jadwal Terkonfirmasi</span>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <!-- SUCCESS MODAL POPUP FOR PITCHING DEMO CONFIRMATION -->
+    <div id="booking-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-slate-100 transform transition">
+            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 text-xl flex items-center justify-center mx-auto">🔒</div>
+            <div class="space-y-1">
+                <h3 class="font-bold text-lg text-slate-900">Escrow Lock Diaktifkan</h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Dana bimbingan untuk <span id="modal-item-name" class="font-semibold text-blue-600">Materi</span> aman ditahan oleh platform BizLogic!
+                </p>
+            </div>
+            <div class="bg-blue-50 p-3 rounded-xl border border-blue-100 text-[11px] text-blue-900 text-left space-y-1">
+                <p><strong>🛡️ Proteksi Pitching Risk-Mitigation:</strong> Dana otomatis cair ke dompet tutor hanya saat mahasiswa melakukan konfirmasi selesai atau mengisi laporan pengajaran.</p>
+            </div>
+            <button onclick="closeModal()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-3 rounded-xl transition">
+                Paham & Selesai Demo
+            </button>
+        </div>
+    </div>
+
+
+    <!-- FOOTER STICKY ELEMENT -->
+    <footer class="bg-white border-t border-slate-100 py-6 text-center text-xs text-slate-400 mt-20">
+        <p>© 2026 BizLogic.co.id — Lulus Bareng, Dompet Aman, Belajar Paham Maju.</p>
+    </footer>
+
+
+    <!-- SINGLE PAGE INTERACTIVE SCRIPT CONTROL -->
+    <script>
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.replace('block', 'hidden');
+            });
+            document.getElementById('page-' + pageId).classList.replace('hidden', 'block');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleUnivChange() {
+            const univSelect = document.getElementById('input-univ');
+            const prodiSelect = document.getElementById('input-prodi');
+            if (univSelect.value !== "") {
+                prodiSelect.removeAttribute('disabled');
+                prodiSelect.classList.remove('bg-slate-100', 'text-slate-400', 'cursor-not-allowed');
+                prodiSelect.classList.add('bg-slate-50', 'text-slate-700', 'cursor-pointer');
+            }
+        }
+
+        function mockSearch() {
+            const univ = document.getElementById('input-univ').value || "Universitas Pakuan";
+            const prodi = document.getElementById('input-prodi').value || "Bisnis Digital";
+            const mode = document.getElementById('input-mode').value;
+            
+            document.getElementById('search-title-summary').innerText = `Menampilkan hasil bimbingan: ${prodi} di ${univ}`;
+            document.getElementById('pill-univ').innerText = univ;
+            document.getElementById('pill-prodi').innerText = prodi;
+            document.getElementById('search-filter-mode').value = mode;
+
+            filterResultsByMode(mode);
+            switchPage('search');
+        }
+
+        function filterResultsByMode(mode) {
+            const cards = document.querySelectorAll('.result-card');
+            cards.forEach(card => {
+                if (mode === 'all' || card.getAttribute('data-mode') === mode) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function openBookingSuccess(itemName) {
+            document.getElementById('modal-item-name').innerText = itemName;
+            const modal = document.getElementById('booking-modal');
+            modal.classList.replace('hidden', 'flex');
+        }
+
+        function closeModal() {
+            document.getElementById('booking-modal').classList.replace('flex', 'hidden');
+        }
+    </script>
+</body>
+</html>
